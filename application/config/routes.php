@@ -1,54 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/userguide3/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
 //$route['default_controller'] = 'producto'; //controlador producto
 $route['default_controller'] = 'Login/showuser'; //controlador login
 $route['404_override'] = '';
@@ -60,3 +12,18 @@ $route['iniciar'] = 'C_Autentication/login_encript'; //controlador autenticació
 $route['cerrar'] = 'C_Autentication/cerrar_sesion'; //controlador autenticación function login
 $route['welcome'] = 'Producto/hola'; //controlador autenticación function login
 $route['registrar'] = 'login/register'; //controlador autenticación function login
+$route['login/validar'] = 'Login/validar'; //controlador login function validar
+
+// Rutas para el Dashboard
+$route['dashboard'] = 'Dashboard/index'; //controlador dashboard function index
+$route['dashboard/stats'] = 'Dashboard/get_stats'; //controlador dashboard function get_stats
+$route['dashboard/activity'] = 'Dashboard/get_recent_activity'; //controlador dashboard function get_recent_activity
+
+// Rutas para el Perfil
+$route['perfil'] = 'C_Autentication/perfil'; //controlador autenticación function perfil
+
+//Ruta para recuperar correo
+$route['recuperar'] = 'C_correo/enviar_correo'; //controlador login function validar
+
+//Ruta para recuperar contraseña
+$route['recuperar_password'] = 'C_Autentication/recuperar_contrasena'; //Function to recover password

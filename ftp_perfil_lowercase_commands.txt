@@ -1,0 +1,7 @@
+open ftp.portafolio4.com
+portafo4_portafolio
+Portafolio2024*
+cd public_html
+put application/controllers/C_Autentication.php
+put application/views/view_perfil.php
+bye 

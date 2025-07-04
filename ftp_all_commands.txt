@@ -1,0 +1,12 @@
+open 15.235.119.22
+portafo4
+@q5S9jv;zS1LW7
+cd public_html
+binary
+put application/controllers/Dashboard.php
+put application/controllers/Login.php
+put application/views/header.php
+put application/views/footer.php
+put application/views/dashboard.php
+put application/config/routes.php
+bye 

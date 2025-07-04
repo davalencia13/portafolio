@@ -1,0 +1,29 @@
+{
+    "name": "portafoliobasico",
+    "host": "15.235.119.22",
+    "protocol": "ftp",
+    "port": 21,
+    "username": "portafo4",
+    "password": "@q5S9jv;zS1LW7",
+    "remotePath": "/public_html/",
+    "uploadOnSave": true,
+    "excludePatterns": [
+        "__pycache__",
+        ".git",
+        ".vscode",
+        "node_modules",
+        ".DS_Store",
+        "Thumbs.db",
+        "*.log",
+        "*.tmp",
+        "*.pyc",
+        ".env"
+    ],
+    "dashboardFiles": [
+        "application/controllers/Dashboard.php",
+        "application/views/header.php",
+        "application/views/footer.php",
+        "application/views/dashboard.php",
+        "application/config/routes.php"
+    ]
+} 

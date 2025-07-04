@@ -1,0 +1,53 @@
+===============================================
+📤 RESUMEN DE SUBIDA FTP - DASHBOARD
+===============================================
+Fecha: $(Get-Date)
+Servidor: 15.235.119.22
+Usuario: portafo4
+Directorio: /public_html/
+
+✅ ARCHIVOS SUBIDOS EXITOSAMENTE:
+===============================================
+
+1. application/controllers/Dashboard.php
+   - Tamaño: 3,176 bytes
+   - Velocidad: 26.03 KB/s
+   - Estado: ✅ Subido correctamente
+
+2. application/views/header.php
+   - Tamaño: 3,813 bytes
+   - Velocidad: 37.75 KB/s
+   - Estado: ✅ Subido correctamente
+
+3. application/views/footer.php
+   - Tamaño: 1,348 bytes
+   - Velocidad: 11.93 KB/s
+   - Estado: ✅ Subido correctamente
+
+4. application/views/dashboard.php
+   - Tamaño: 11,137 bytes
+   - Velocidad: 99.44 KB/s
+   - Estado: ✅ Subido correctamente
+
+5. application/config/routes.php
+   - Tamaño: 2,889 bytes
+   - Velocidad: 27.51 KB/s
+   - Estado: ✅ Subido correctamente
+
+===============================================
+📊 ESTADÍSTICAS:
+- Total de archivos: 5
+- Total de bytes: 22,363 bytes (22 KB)
+- Tiempo total: ~0.6 segundos
+- Archivos con errores: 0
+
+===============================================
+🎯 PRÓXIMOS PASOS:
+1. Verificar que el dashboard funcione en el servidor
+2. Acceder a: http://tu-dominio/dashboard
+3. Probar la funcionalidad del sistema
+4. Verificar que la autenticación funcione correctamente
+
+===============================================
+✅ ¡DASHBOARD SUBIDO EXITOSAMENTE!
+=============================================== 

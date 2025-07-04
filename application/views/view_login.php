@@ -37,6 +37,7 @@
                 padding: 2rem;
                 background-color: #f8f9fa;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 12px;
             }
             
             @media(max-width: 768px) {
@@ -92,6 +93,10 @@
                         <button type="submit" class="btn btn-primary">Ingresar</button>
                     </div>
                 </form>
+                
+                <div class="text-center mt-3">
+                    <a href="<?= base_url('recuperar_password'); ?>" class="text-decoration-none">¿Olvidó contraseña?</a>
+                </div>
             </div>
         </div>
     </div>

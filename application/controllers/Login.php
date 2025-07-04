@@ -141,4 +141,41 @@ class Login extends CI_Controller {
 		die('Fin de la depuración');*/
 
 	}
+
+	public function validar()
+	{
+		// Cargar el modelo de usuario
+		$this->load->model('Model_User');
+		
+		// Obtener datos del formulario
+		$usuario = $this->input->post('usuario');
+		$contrasena = $this->input->post('contrasena');
+		
+		// Validar que los campos no estén vacíos
+		if (empty($usuario) || empty($contrasena)) {
+			$this->session->set_flashdata('errors', 'Usuario y contraseña son requeridos');
+			redirect('login');
+			return;
+		}
+		
+		// Verificar el usuario con contraseña encriptada
+		$user = $this->Model_User->user_validation_encript($usuario);
+		
+		if ($user && password_verify($contrasena, $user->password)) {
+			// Login exitoso - crear sesión
+			$user_data = array(
+				'id' => $user->id_user,
+				'user' => $user->user,
+				'logged_in' => true,
+			);
+			$this->session->set_userdata($user_data);
+			
+			// Redirigir al dashboard
+			redirect('dashboard');
+		} else {
+			// Login fallido
+			$this->session->set_flashdata('errors', 'Usuario o contraseña incorrectos');
+			redirect('login');
+		}
+	}
 }

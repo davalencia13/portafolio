@@ -1,0 +1,110 @@
+===============================================
+📁 ARCHIVOS INCLUIDOS EN FTP_UPLOAD.PS1
+===============================================
+
+🎯 OPCIÓN "DASHBOARD" (RECOMENDADA)
+===============================================
+Esta opción sube todos los archivos importantes del proyecto:
+
+📄 ARCHIVOS PRINCIPALES DEL SISTEMA:
+- index.php
+- .htaccess
+
+🎮 CONTROLADORES:
+- application/controllers/Dashboard.php
+- application/controllers/Login.php
+- application/controllers/C_Autentication.php
+- application/controllers/C_Welcome.php
+- application/controllers/Producto.php
+
+👁️ VISTAS:
+- application/views/header.php
+- application/views/footer.php
+- application/views/dashboard.php
+- application/views/view_login.php
+- application/views/view_register.php
+- application/views/view_landing.php
+- application/views/view_producto.php
+- application/views/welcome_message.php
+
+📊 MODELOS:
+- application/models/Model_User.php
+- application/models/Model_Loginuser.php
+- application/models/M_Login.php
+
+⚙️ CONFIGURACIÓN:
+- application/config/routes.php
+- application/config/config.php
+- application/config/database.php
+- application/config/autoload.php
+- application/config/constants.php
+
+📋 ARCHIVOS DE CONFIGURACIÓN DEL PROYECTO:
+- composer.json
+- readme.rst
+- license.txt
+
+===============================================
+🎯 OPCIONES ESPECÍFICAS:
+===============================================
+
+🔧 "CONTROLLERS" - Solo controladores:
+- application/controllers/Dashboard.php
+- application/controllers/Login.php
+- application/controllers/C_Autentication.php
+- application/controllers/C_Welcome.php
+- application/controllers/Producto.php
+
+👁️ "VIEWS" - Solo vistas:
+- application/views/header.php
+- application/views/footer.php
+- application/views/dashboard.php
+- application/views/view_login.php
+- application/views/view_register.php
+- application/views/view_landing.php
+- application/views/view_producto.php
+- application/views/welcome_message.php
+
+📊 "MODELS" - Solo modelos:
+- application/models/Model_User.php
+- application/models/Model_Loginuser.php
+- application/models/M_Login.php
+
+⚙️ "CONFIG" - Solo configuración:
+- application/config/routes.php
+- application/config/config.php
+- application/config/database.php
+- application/config/autoload.php
+- application/config/constants.php
+
+🏠 "CORE" - Archivos principales:
+- index.php
+- .htaccess
+- composer.json
+
+===============================================
+🚀 CÓMO USAR:
+===============================================
+
+1. SUBIR TODO EL PROYECTO (RECOMENDADO):
+   .\ftp_upload.ps1 dashboard
+
+2. SUBIR POR CATEGORÍA:
+   .\ftp_upload.ps1 controllers
+   .\ftp_upload.ps1 views
+   .\ftp_upload.ps1 models
+   .\ftp_upload.ps1 config
+   .\ftp_upload.ps1 core
+
+3. SUBIR ARCHIVOS ESPECÍFICOS:
+   .\ftp_upload.ps1 files archivo1.php archivo2.php
+
+4. SUBIR TODO EL DIRECTORIO:
+   .\ftp_upload.ps1
+
+5. VER AYUDA:
+   .\ftp_upload.ps1 help
+
+===============================================
+✅ TOTAL DE ARCHIVOS INCLUIDOS: 25
+=============================================== 

@@ -27,4 +27,48 @@ class Model_User extends CI_Model {
             return $query->row(); // Devuelve el primer resultado como un objeto
         }
     }
+
+    // Función para obtener usuario por ID
+    public function get_user_by_id($user_id){
+        $this->db->where('id_user', $user_id);
+        $query = $this->db->get('rol_users');
+        
+        if($query->num_rows() > 0) {
+            return $query->row();
+        }
+        return false;
+    }
+
+    // Función para actualizar usuario
+    public function update_user($user_id, $data){
+        $this->db->where('id_user', $user_id);
+        return $this->db->update('rol_users', $data);
+    }
+
+    // Función para verificar si el nombre de usuario ya existe (excluyendo el usuario actual)
+    public function check_username_exists($username, $exclude_user_id = null){
+        $this->db->where('user', $username);
+        if($exclude_user_id) {
+            $this->db->where('id_user !=', $exclude_user_id);
+        }
+        $query = $this->db->get('rol_users');
+        return $query->num_rows() > 0;
+    }
+
+    // Función para verificar si el email ya existe (excluyendo el usuario actual)
+    public function check_email_exists($email, $exclude_user_id = null){
+        $this->db->where('email', $email);
+        if($exclude_user_id) {
+            $this->db->where('id_user !=', $exclude_user_id);
+        }
+        $query = $this->db->get('rol_users');
+        return $query->num_rows() > 0;
+    }
+
+    // Función para obtener usuario por correo electrónico
+    public function get_user_by_email($email){
+        $this->db->where('email', $email);
+        $query = $this->db->get('rol_users');
+        return $query->row();
+    }
 }
