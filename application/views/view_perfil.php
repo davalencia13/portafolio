@@ -136,7 +136,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
 
                     <hr class="my-4">
-
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="new_password" class="form-label">
+                                    <i class="fas fa-lock me-1"></i>Contraseña actual
+                                </label>
+                                <input type="password" class="form-control" id="old_password" name="old_password" 
+                                       minlength="3" maxlength="20">
+                                <?= form_error('old_password', '<small class="text-danger">', '</small>'); ?>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -144,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <i class="fas fa-lock me-1"></i>Nueva Contraseña
                                 </label>
                                 <input type="password" class="form-control" id="new_password" name="new_password" 
-                                       minlength="6" maxlength="20">
+                                       minlength="3" maxlength="20">
                                 <small class="text-muted">Deja en blanco para mantener la actual</small>
                                 <?= form_error('new_password', '<small class="text-danger">', '</small>'); ?>
                             </div>
@@ -156,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <i class="fas fa-lock me-1"></i>Confirmar Nueva Contraseña
                                 </label>
                                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" 
-                                       minlength="6" maxlength="20">
+                                       minlength="3" maxlength="20">
                                 <?= form_error('confirm_password', '<small class="text-danger">', '</small>'); ?>
                             </div>
                         </div>

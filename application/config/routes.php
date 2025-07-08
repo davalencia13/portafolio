@@ -26,4 +26,5 @@ $route['perfil'] = 'C_Autentication/perfil'; //controlador autenticación functi
 $route['recuperar'] = 'C_correo/enviar_correo'; //controlador login function validar
 
 //Ruta para recuperar contraseña
-$route['recuperar_password'] = 'C_Autentication/recuperar_contrasena'; //Function to recover password
+$route['recuperar_password'] = 'C_Autentication/recuperar_contrasena'; //Function to recover password   
+$route['change_password'] = 'C_Autentication/change_password'; //Function to change password

@@ -109,6 +109,19 @@ class C_Autentication extends CI_Controller {
             $this->form_validation->set_rules('email', 'Email', 'valid_email|max_length[100]');
             $this->form_validation->set_rules('user', 'Usuario', 'required|min_length[3]|max_length[100]');
 
+            // Si se proporcionó una nueva contraseña, agregar reglas de validación
+            if ($this->input->post('new_password') && !empty($this->input->post('new_password'))) {
+                $this->form_validation->set_rules('old_password', 'Contraseña actual', 'required');
+                $this->form_validation->set_rules('new_password', 'Nueva Contraseña', 'min_length[3]|max_length[20]');
+                $this->form_validation->set_rules('confirm_password', 'Confirmar Contraseña', 'required|matches[new_password]');
+                
+                // Mensajes personalizados para las reglas de validaciones de contraseña
+                $this->form_validation->set_message('matches', 'La nueva contraseña y confirmar contraseña no coinciden');
+                $this->form_validation->set_message('required', 'El campo %s es obligatorio');
+                $this->form_validation->set_message('min_length', 'El campo %s debe tener al menos %s caracteres');
+                $this->form_validation->set_message('max_length', 'El campo %s no puede tener más de %s caracteres');
+            }
+
             if ($this->form_validation->run() == FALSE) {
                 // Validación falló
                 $this->session->set_flashdata('errors', validation_errors());
@@ -122,13 +135,15 @@ class C_Autentication extends CI_Controller {
                     'user' => $this->input->post('user')
                 );
 
-                // Si se proporcionó una nueva contraseña
+                // Si se proporcionó una nueva contraseña, validar contraseña actual
                 if ($this->input->post('new_password') && !empty($this->input->post('new_password'))) {
-                    $this->form_validation->set_rules('new_password', 'Nueva Contraseña', 'min_length[6]|max_length[20]');
-                    $this->form_validation->set_rules('confirm_password', 'Confirmar Contraseña', 'matches[new_password]');
-                    
-                    if ($this->form_validation->run() == TRUE) {
+                    $user = $this->Model_User->get_user_by_id($user_id); // Obtener el usuario actual
+                    if (password_verify($this->input->post('old_password'), $user->password)) {
                         $update_data['password'] = password_hash($this->input->post('new_password'), PASSWORD_BCRYPT);
+                    } else {
+                        $this->session->set_flashdata('errors', 'Contraseña actual incorrecta');
+                        redirect('perfil');
+                        return;
                     }
                 }
 
@@ -198,7 +213,6 @@ class C_Autentication extends CI_Controller {
     }
     
     public function recuperar_contrasena(){
-        $this->load->view('view_recuperar_password'); // Redirige a la página de ingresar datos para recuperar contraseña
+        $this->load->view('view_send_password'); // Redirige a la página de ingresar datos para recuperar contraseña
     }
-
 }
