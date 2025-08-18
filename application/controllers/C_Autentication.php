@@ -85,6 +85,93 @@ class C_Autentication extends CI_Controller {
             }
     }
 
+    public function iniciar() {
+        $this->form_validation->set_rules('usuario', 'Usuario', 'required');
+        $this->form_validation->set_rules('password', 'Contraseña', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('errors', validation_errors());
+            redirect('login');
+            return;
+        }
+
+        $usuario = $this->input->post('usuario');
+        $contrasena = $this->input->post('password');
+        $user = $this->Model_User->user_validation_encript($usuario);
+
+        if ($user && password_verify($contrasena, $user->password)) {
+            // Generar código de autenticación
+            $codigo = rand(100000, 999999);
+            $expiracion = date('Y-m-d H:i:s', strtotime('+2 hours'));
+            $this->Model_User->set_auth_code($user->id_user, $codigo, $expiracion);
+            // Actualizar el objeto usuario con el código
+            $user->auth_code = $codigo;
+            $user->auth_code_expiry = $expiracion;
+            // Enviar el código por correo
+            $this->load->library('email');
+            $this->load->helper('url');
+            $this->load->model('Model_User');
+            $this->load->library('session');
+            $this->load->helper('form');
+            $this->load->helper('security');
+            $this->load->library('form_validation');
+            $this->load->library('user_agent');
+            $this->load->library('encryption');
+            $this->load->library('C_correo');
+            $this->C_correo->enviar_codigo_autenticacion($user);
+            // Guardar temporalmente el id del usuario para la verificación
+            $this->session->set_userdata('pending_2fa_user', $user->id_user);
+            redirect('ingresarcodigo');
+        } else {
+            $this->session->set_flashdata('errors', 'Usuario o contraseña incorrectos');
+            redirect('login');
+        }
+    }
+
+    // Vista para ingresar el código de autenticación
+    public function verificar_codigo() {
+        $this->load->view('view_verificar_codigo');
+    }
+
+    // Validar el código de autenticación
+    public function validar_codigo() {
+        $user_id = $this->session->userdata('pending_2fa_user');
+        $codigo = $this->input->post('codigo');
+        $user = $this->Model_User->get_user_by_id($user_id);
+
+        // Mensajes de depuración
+        $debug_msgs = [];
+        $debug_msgs[] = '2FA: user_id de sesión: ' . print_r($user_id, true);
+        $debug_msgs[] = '2FA: Código recibido del formulario: ' . print_r($codigo, true);
+        $debug_msgs[] = '2FA: Usuario obtenido de la BD: ' . print_r($user, true);
+        if ($user) {
+            $debug_msgs[] = '2FA: Email del usuario: ' . $user->email;
+            $debug_msgs[] = '2FA: Código almacenado en BD: ' . $user->auth_code;
+            $debug_msgs[] = '2FA: Expiración almacenada en BD: ' . $user->auth_code_expiry;
+        }
+        $debug_str = implode('<br>', $debug_msgs);
+        $this->session->set_flashdata('debug_msgs', $debug_str);
+
+        if ($user && $user->auth_code == $codigo && strtotime($user->auth_code_expiry) > time()) {
+            // Código correcto y no expirado, crear sesión
+            $user_data = array(
+                'id' => $user->id_user,
+                'user' => $user->user,
+                'logged_in' => true,
+            );
+            $this->session->set_userdata($user_data);
+            // Limpiar el código de autenticación
+            $this->Model_User->set_auth_code($user->id_user, null, null);
+            $this->session->unset_userdata('pending_2fa_user');
+            // Mantener los mensajes de depuración para el dashboard
+            $this->session->set_flashdata('debug_msgs', $debug_str);
+            redirect('dashboard');
+        } else {
+            $this->session->set_flashdata('errors', 'Código incorrecto o expirado.');
+            redirect('verificar_codigo');
+        }
+    }
+
     public function cerrar_sesion(){
         $this->session->sess_destroy(); // Destruye la sesión actual
         $this->session->set_flashdata('correct', 'Sesion cerrada correctamente'); // Establece un mensaje flash de error
@@ -213,6 +300,26 @@ class C_Autentication extends CI_Controller {
     }
     
     public function recuperar_contrasena(){
-        $this->load->view('view_send_password'); // Redirige a la página de ingresar datos para recuperar contraseña
+        $this->load->view('view_recuperar_contrasena'); // Redirige a la página de ingresar datos para recuperar contraseña
+    }
+
+    public function recuperar() {
+        $correo = $this->input->post('usuario');
+        if (!$correo) {
+            $this->session->set_flashdata('errors', 'Debe ingresar un correo electrónico.');
+            redirect('recuperar_password');
+            return;
+        }
+        // Buscar usuario por email
+        $this->load->model('Model_User');
+        $usuario = $this->Model_User->get_user_by_email($correo);
+        if ($usuario) {
+            // Llamar al controlador de correo para enviar los datos
+            $this->load->library('C_correo');
+            $this->C_correo->enviar_correo();
+        } else {
+            $this->session->set_flashdata('errors', 'No existe un usuario registrado con ese correo electrónico.');
+            redirect('recuperar_password');
+        }
     }
 }

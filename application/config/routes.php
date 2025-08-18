@@ -8,7 +8,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'Login/showuser'; //controlador login fubnction showuser
 $route['enviadatos'] = 'Login/send'; //controlador login function envia
-$route['iniciar'] = 'C_Autentication/login_encript'; //controlador autenticación function login
+$route['iniciar'] = 'C_Autentication/iniciar'; //controlador autenticación function iniciar con 2FA
 $route['cerrar'] = 'C_Autentication/cerrar_sesion'; //controlador autenticación function login
 $route['welcome'] = 'Producto/hola'; //controlador autenticación function login
 $route['registrar'] = 'login/register'; //controlador autenticación function login
@@ -26,5 +26,7 @@ $route['perfil'] = 'C_Autentication/perfil'; //controlador autenticación functi
 $route['recuperar'] = 'C_correo/enviar_correo'; //controlador login function validar
 
 //Ruta para recuperar contraseña
-$route['recuperar_password'] = 'C_Autentication/recuperar_contrasena'; //Function to recover password   
-$route['change_password'] = 'C_Autentication/change_password'; //Function to change password
+$route['recuperar_password'] = 'C_Autentication/recuperar_contrasena'; //Function to recover password
+
+//Ruta para recuperar correo
+$route['ingresarcodigo'] = 'C_Autentication/verificar_codigo'; //controlador ingresar código de autenticación

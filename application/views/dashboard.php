@@ -4,6 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <?php $this->load->view('header'); ?>
 
+<?php if($this->session->flashdata('debug_msgs')): ?>
+    <div class="alert alert-info">
+        <?= $this->session->flashdata('debug_msgs'); ?>
+    </div>
+<?php endif; ?>
+
 <div class="row">
     <div class="col-12">
         <h1 class="h3 mb-4">

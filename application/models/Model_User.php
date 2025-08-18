@@ -71,4 +71,13 @@ class Model_User extends CI_Model {
         $query = $this->db->get('rol_users');
         return $query->row();
     }
+
+    // Guardar código de autenticación y expiración para 2FA
+    public function set_auth_code($user_id, $code, $expiry) {
+        $this->db->where('id_user', $user_id);
+        return $this->db->update('rol_users', [
+            'auth_code' => $code,
+            'auth_code_expiry' => $expiry
+        ]);
+    }
 }
